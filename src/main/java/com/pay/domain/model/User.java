@@ -1,4 +1,4 @@
-package com.pay.domain;
+package com.pay.domain.model;
 
 
 import lombok.*;
@@ -10,11 +10,11 @@ import java.util.List;
 @Table(name = "user")
 @Setter
 @Getter
-@ToString(exclude = {"paymentDomainList"})
+@ToString(exclude = {"paymentList"})
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDomain {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +44,6 @@ public class UserDomain {
     private String cycleIncome;
 
     @OneToMany(mappedBy = "user")
-    private List<PaymentDomain> paymentDomainList;
+    private List<Payment> paymentList;
 
 }

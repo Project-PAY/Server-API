@@ -1,7 +1,7 @@
-package com.pay.controller;
+package com.pay.web.controller;
 
-import com.pay.service.AuthService;
-import com.pay.service.PaymentService;
+import com.pay.domain.service.AuthService;
+import com.pay.domain.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

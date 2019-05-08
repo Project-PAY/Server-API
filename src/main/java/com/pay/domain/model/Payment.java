@@ -1,4 +1,4 @@
-package com.pay.domain;
+package com.pay.domain.model;
 
 import lombok.*;
 
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaymentDomain {
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class PaymentDomain {
 
     @ManyToOne
     @JoinColumn
-    private UserDomain user;
+    private User user;
 
     @Column(length = 16, nullable = false)
     private String kind;

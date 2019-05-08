@@ -1,9 +1,9 @@
-package com.pay.service;
+package com.pay.domain.service;
 
-import com.pay.domain.PaymentDomain;
-import com.pay.domain.UserDomain;
-import com.pay.repository.PaymentRepository;
-import com.pay.repository.UserRepository;
+import com.pay.domain.model.Payment;
+import com.pay.domain.model.User;
+import com.pay.domain.repository.PaymentRepository;
+import com.pay.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +27,9 @@ public class UserService {
                      Long currentMoney) {
 
         try {
-            paymentRepository.save(PaymentDomain.builder()
+            paymentRepository.save(Payment.builder()
                     .user(
-                            userRepository.save(UserDomain.builder()
+                            userRepository.save(User.builder()
                                     .identify(identify)
                                     .password(password)
                                     .name(name)

@@ -1,8 +1,8 @@
-package com.pay.service;
+package com.pay.domain.service;
 
-import com.pay.domain.UserDomain;
-import com.pay.repository.AuthRepository;
-import com.pay.repository.UserRepository;
+import com.pay.domain.model.User;
+import com.pay.domain.repository.AuthRepository;
+import com.pay.domain.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -32,8 +32,12 @@ public class AuthService implements AuthRepository {
 
     public String auth(@Valid String identify,
                        @Valid String password) {
-        UserDomain userDomain = userRepository.findByIdentifyAndPasswordAndAvailable(identify, password, "able");
-        return createUser(userDomain.getIndex(), userDomain.getIdentify(), userDomain.getName());
+        User user = userRepository.findByIdentifyAndPasswordAndAvailable(identify, password, "able");
+
+        if (user == null)
+            return null;
+        else
+            return createUser(user.getIndex(), user.getIdentify(), user.getName());
     }
 
 
@@ -60,9 +64,9 @@ public class AuthService implements AuthRepository {
     }
 
 
-    public UserDomain getUser(@Valid String token) {
+    public User getUser(@Valid String token) {
         Map map = doGet(CLAIM, token);
-        return UserDomain.builder()
+        return User.builder()
                 .identify(String.valueOf(map.get("identify")))
                 .name(String.valueOf(map.get("name")))
                 .index(Long.parseLong(String.valueOf(map.get("index"))))

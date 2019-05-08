@@ -1,6 +1,6 @@
 package com.pay.core;
 
-import com.pay.service.AuthService;
+import com.pay.domain.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,7 +18,7 @@ public class JWTInterceptor implements HandlerInterceptor {
 
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         final String token = request.getHeader(HEADER);
         return authService.isUser(token);
     }

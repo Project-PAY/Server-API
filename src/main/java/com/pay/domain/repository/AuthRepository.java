@@ -1,4 +1,4 @@
-package com.pay.repository;
+package com.pay.domain.repository;
 
 import java.util.Map;
 

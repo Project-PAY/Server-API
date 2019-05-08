@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-    //    https://github.com/sociablesasha/BBS-SpringBoot-REST-API-JWT/blob/master/src/main/java/com/nomsa/bbs/Config/MVCConfig.java
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry
@@ -22,7 +21,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                         "/error/**"
                 });
     }
-
 
     @Bean
     public JWTInterceptor createInterceptor() {
