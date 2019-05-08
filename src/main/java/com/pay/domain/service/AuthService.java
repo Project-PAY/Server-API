@@ -42,6 +42,14 @@ public class AuthService implements AuthRepository {
 
 
     public boolean isUser(@Valid String token) {
+        if (token == null)
+            return false;
+
+        User user = getUser(token);
+
+        if (user == null)
+            return false;
+
         return userRepository.getOne(getUser(token).getIndex()) != null;
     }
 
@@ -66,6 +74,10 @@ public class AuthService implements AuthRepository {
 
     public User getUser(@Valid String token) {
         Map map = doGet(CLAIM, token);
+
+        if (map == null)
+            return null;
+
         return User.builder()
                 .identify(String.valueOf(map.get("identify")))
                 .name(String.valueOf(map.get("name")))
@@ -101,13 +113,15 @@ public class AuthService implements AuthRepository {
     public Map<String, Object> doGet(String claim, String token) {
         Jws<Claims> claims;
 
-        claims = Jwts.parser()
-                .setSigningKey(generateKey())
-                .parseClaimsJws(token);
+        try {
+            claims = Jwts.parser()
+                    .setSigningKey(generateKey())
+                    .parseClaimsJws(token);
+        } catch (Exception exception) {
+            return null;
+        }
 
-        Map<String, Object> map = (Map<String, Object>) claims.getBody().get(claim);
-
-        return map;
+        return (Map<String, Object>) claims.getBody().get(claim);
     }
 
 

@@ -6,14 +6,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
-public class AuthLogin {
+public class OutcomeRequest {
 
     @NotNull
-    @Size(max = 32)
-    String identify;
+    String content;
 
     @NotNull
-    @Size(max = 64)
-    String password;
+    Long price;
+
+    @NotNull
+    @Size(max = 16)
+    String method;
 
 }

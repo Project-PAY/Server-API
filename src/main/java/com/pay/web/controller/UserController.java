@@ -1,15 +1,12 @@
 package com.pay.web.controller;
 
 import com.pay.domain.service.UserService;
+import com.pay.web.request.UserRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @RestController
 public class UserController {
@@ -20,14 +17,15 @@ public class UserController {
 
     @PostMapping("/users")
     @ApiOperation(value = "Join")
-    public void join(
-            @RequestParam @NotNull @Size(max = 32) String identify,
-            @RequestParam @NotNull @Size(max = 64) String password,
-            @RequestParam @NotNull @Size(max = 32) String name,
-            @RequestParam(defaultValue = "0") Long fixedIncome,
-            @RequestParam(defaultValue = "00") @Pattern(regexp = "^[0-3][0-9]$") String cycleIncome,
-            @RequestParam(defaultValue = "0") Long currentMoney) {
-        userService.join(identify, password, name, fixedIncome, cycleIncome, currentMoney);
+    public void join(@RequestBody UserRequest request) {
+        userService.join(
+                request.getIdentify(),
+                request.getPassword(),
+                request.getName(),
+                request.getFixedIncome(),
+                request.getCycleIncome(),
+                request.getCurrentMoney()
+        );
     }
 
 }

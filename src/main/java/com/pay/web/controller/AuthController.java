@@ -1,7 +1,7 @@
 package com.pay.web.controller;
 
 import com.pay.domain.service.AuthService;
-import com.pay.web.request.AuthLogin;
+import com.pay.web.request.AuthRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +18,13 @@ public class AuthController {
 
     @PostMapping("/auth")
     @ApiOperation(value = "Login")
-    public ResponseEntity login(@RequestBody AuthLogin request) {
-
+    public ResponseEntity login(@RequestBody AuthRequest request) {
         Object token = authService.auth(request.getIdentify(), request.getPassword());
 
         if (token == null)
             return ResponseEntity.badRequest().body("[ERROR] Identify & Password");
-        else
-            return ResponseEntity.ok(token);
 
+        return ResponseEntity.ok(token);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.pay.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "payment")
 @Setter
 @Getter
-@ToString
+@ToString(exclude = {"user"})
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,8 +23,9 @@ public class Payment {
     @Column(length = 8, insertable = false)
     private String available;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
+    @JsonBackReference
     private User user;
 
     @Column(length = 16, nullable = false)
