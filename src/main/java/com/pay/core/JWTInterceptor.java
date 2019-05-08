@@ -18,9 +18,14 @@ public class JWTInterceptor implements HandlerInterceptor {
 
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         final String token = request.getHeader(HEADER);
-        return authService.isUser(token);
+
+        if (authService.isUser(token))
+            return true;
+
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        return false;
     }
 
 }
